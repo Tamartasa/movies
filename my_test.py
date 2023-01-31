@@ -23,3 +23,7 @@ print(all_movies)
 
 movie = Movie.objects.get(pk=3)
 print(movie.rating_set.all())
+
+r = Rating.objects.get(pk=2)
+print(r.movie_id)
+print(movie)

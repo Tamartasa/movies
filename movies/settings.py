@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sk$j!5!=&l&bu%2-5wltj2%(4%57a-g2y$6^zfe6(b*z&se&x='
+with open('secret_key.txt', 'r') as fh:
+    SECRET_KEY = fh.read()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -100,9 +101,31 @@ DATABASES = {'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'movies_new',
         'USER': 'postgres',
-        'PASSWORD': 'tkt@200974467',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '5432'}
+}
+
+LOGGING = {
+    'version': 1,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        }
+    }
 }
 
 # Password validation
